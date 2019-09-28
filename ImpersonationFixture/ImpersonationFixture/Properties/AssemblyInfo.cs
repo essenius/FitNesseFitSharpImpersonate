@@ -16,6 +16,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 [assembly: Guid("1098064e-8200-4787-ae78-733c2c350553")]
-[assembly: AssemblyVersion("1.1.0")]
+[assembly: AssemblyVersion("1.1.1")]
 [assembly: InternalsVisibleTo("ImpersonationFixtureTest")]
 [assembly: NeutralResourcesLanguage("en-US")]

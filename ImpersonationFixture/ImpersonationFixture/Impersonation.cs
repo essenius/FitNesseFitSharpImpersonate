@@ -16,6 +16,7 @@ using AdysTech.CredentialManager;
 
 namespace ImpersonationFixture
 {
+    [Documentation("Impersonate another user e.g. for testing REST APIs. Does not work when spawning new processes (Selenium, UI Automation)")]
     public sealed class Impersonation
     {
         [Documentation("Return the currently impersonated user, or the default user if no impersonation")]
