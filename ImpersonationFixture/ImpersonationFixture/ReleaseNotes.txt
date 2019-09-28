@@ -1,0 +1,2 @@
+﻿1.0.0 Initial release
+1.1.0 Renamed ImpersonateWithCredential to Impersonate, added demo test page, added Release Notes and updated Readme.md

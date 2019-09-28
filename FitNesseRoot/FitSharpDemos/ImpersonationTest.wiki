@@ -1,0 +1,18 @@
+!path "ImpersonationFixture\ImpersonationFixture\bin\Release\ImpersonationFixture.dll"
+
+!|import             |
+|ImpersonationFixture|
+
+This test requires a (working) generic Windows credential called !-TestUser-! in Credential Manager
+
+!|script    |impersonation          |
+|$localUser=|current user           |
+|impersonate|testUser               |
+|check not  |current user|$localUser|
+|show       |current user           |
+
+!|script                      |
+|stop impersonating           |
+|check|current user|$localUser|
+|stop impersonating           |
+|check|current user|$localUser|

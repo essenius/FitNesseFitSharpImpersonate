@@ -22,7 +22,7 @@ namespace ImpersonationFixture
         public static string CurrentUser => WindowsIdentity.GetCurrent().Name;
 
         [Documentation("Impersonate using a Generic entry in Credential Manager")]
-        public static bool ImpersonateUsingCredential(string target)
+        public static bool Impersonate(string target)
         {
             // CredentialManager can only return passwords for Generic credentials as per CredentialManager's unit tests.
             var credential = CredentialManager.GetCredentials(target);

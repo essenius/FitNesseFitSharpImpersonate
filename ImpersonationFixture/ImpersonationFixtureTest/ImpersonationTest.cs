@@ -44,7 +44,7 @@ namespace ImpersonationFixtureTest
         {
             try
             {
-                Impersonation.ImpersonateUsingCredential(Target);
+                Impersonation.Impersonate(Target);
                 Assert.Fail("No security exception thrown after impersonating with wrong credentials");
             }
             catch (SecurityException se)
@@ -59,8 +59,8 @@ namespace ImpersonationFixtureTest
             const string unknownTarget = "@Unknown!Target$";
             try
             {
-                Impersonation.ImpersonateUsingCredential(unknownTarget);
-                Assert.Fail("No security exception thrown after specifuying unknown target");
+                Impersonation.Impersonate(unknownTarget);
+                Assert.Fail("No security exception thrown after specifying unknown target");
             }
             catch (SecurityException se)
             {
@@ -72,10 +72,10 @@ namespace ImpersonationFixtureTest
         [TestMethod]
         public void ImpersonationSuccessfulLogonTest()
         {
-            // For this test to work, ensure there is an entry called ImpersonationUser with working credentials
+            // For this test to work, ensure there is a generic Credential Manager entry called ImpersonationUser with working credentials
             const string workingTarget = "ImpersonationUser";
             var currentUser = Impersonation.CurrentUser;
-            Impersonation.ImpersonateUsingCredential(workingTarget);
+            Impersonation.Impersonate(workingTarget);
             Assert.AreNotEqual(currentUser, Impersonation.CurrentUser, "Users are different after impersonating");
             Impersonation.StopImpersonating();
             Assert.AreEqual(currentUser, Impersonation.CurrentUser, "Orginal user restored after stopping impersonation");
