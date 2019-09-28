@@ -1,6 +1,5 @@
 # FitNesseFitSharpImpersonate
-Fixture to impersonate another user (e.g. for testing REST APIs under a different account).
-Note that this won't work with Selenium or UI Automation, as those spawn other processes which use the original user.
+Fixture to impersonate another user (e.g. for testing REST APIs under a different account). It uses a generic entry from the Credential Manager. Note that this won't work with Selenium or UI Automation, as those spawn other processes which use the original user.
 
 # Getting Started
 1. Download FitNesse (http://fitnesse.org) and install it to C:\Apps\FitNesse
