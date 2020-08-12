@@ -1,4 +1,4 @@
-﻿// Copyright 2019 Rik Essenius
+﻿// Copyright 2019-2020 Rik Essenius
 //
 //   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file 
 //   except in compliance with the License. You may obtain a copy of the License at
@@ -22,35 +22,19 @@ namespace ImpersonationFixtureTest
     [TestClass]
     public class ImpersonationTest
     {
-        private const string UserName = "FitNesseUser";
-        private const string Password = "'6HcF!gN$[Vf{3ag";
         private const string Domain = "fitnesse.org";
+        private const string Password = "'6HcF!gN$[Vf{3ag";
         private const string Target = "ImpersonationFixtureTest";
-
-        [ClassInitialize]
-        [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Required signature")]
-        public static void ClassInitialize(TestContext testContext)
-        {
-            var credential = new NetworkCredential(UserName, Password, Domain);
-            CredentialManager.SaveCredentials(Target, credential);
-        }
+        private const string UserName = "FitNesseUser";
 
         [ClassCleanup]
         public static void ClassCleanup() => CredentialManager.RemoveCredentials(Target);
 
-
-        [TestMethod]
-        public void ImpersonationFailedLogonTest()
+        [ClassInitialize, SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Required signature")]
+        public static void ClassInitialize(TestContext testContext)
         {
-            try
-            {
-                Impersonation.Impersonate(Target);
-                Assert.Fail("No security exception thrown after impersonating with wrong credentials");
-            }
-            catch (SecurityException se)
-            {
-                Assert.AreEqual($"Could not impersonate user '{UserName}' for domain '{Domain}'", se.Message);
-            }
+            var credential = new NetworkCredential(UserName, Password, Domain);
+            CredentialManager.SaveCredentials(Target, credential);
         }
 
         [TestMethod]
@@ -66,6 +50,21 @@ namespace ImpersonationFixtureTest
             {
                 Assert.IsTrue(se.Message.StartsWith($"Could not find target '{unknownTarget}' in Generic section of Credential Manager for user '",
                     StringComparison.InvariantCultureIgnoreCase));
+            }
+        }
+
+
+        [TestMethod]
+        public void ImpersonationFailedLogonTest()
+        {
+            try
+            {
+                Impersonation.Impersonate(Target);
+                Assert.Fail("No security exception thrown after impersonating with wrong credentials");
+            }
+            catch (SecurityException se)
+            {
+                Assert.AreEqual($"Could not impersonate user '{UserName}' for domain '{Domain}'", se.Message);
             }
         }
 

@@ -1,4 +1,4 @@
-﻿// Copyright 2019 Rik Essenius
+﻿// Copyright 2019-2020 Rik Essenius
 //
 //   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file 
 //   except in compliance with the License. You may obtain a copy of the License at
@@ -16,16 +16,16 @@ using AdysTech.CredentialManager;
 
 namespace ImpersonationFixture
 {
-    [Documentation("Impersonate another user e.g. for testing REST APIs. Does not work when spawning new processes (Selenium, UI Automation)")]
+    /// <summary>Impersonate another user e.g. for testing REST APIs. Does not work when spawning new processes (Selenium, UI Automation)</summary>
     public sealed class Impersonation
     {
-        [Documentation("Return the currently impersonated user, or the default user if no impersonation")]
+        /// <returns>the currently impersonated user, or the default user if no impersonation</returns>
         public static string CurrentUser => WindowsIdentity.GetCurrent().Name;
 
-        [Documentation("Impersonate using a Generic entry in Credential Manager")]
+        /// <summary>Impersonate using a Generic entry in Credential Manager</summary>
+        /// <remarks>CredentialManager can only return passwords for Generic credentials as per CredentialManager's unit tests</remarks>
         public static bool Impersonate(string target)
         {
-            // CredentialManager can only return passwords for Generic credentials as per CredentialManager's unit tests.
             var credential = CredentialManager.GetCredentials(target);
             if (credential == null) throw new SecurityException(Utilities.Message(Resources.TargetNotFound, target, CurrentUser));
             try
@@ -39,7 +39,7 @@ namespace ImpersonationFixture
             return true;
         }
 
-        [Documentation("Stop impersonating a user")]
+        /// <summary>Stop impersonating a user</summary>
         public static bool StopImpersonating()
         {
             // Allow a SecurityException to kick in; it will be caught by FitSharp.
